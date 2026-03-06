@@ -90,22 +90,33 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
     setIsSubmitting(true);
 
     try {
-      const payload = {
-        imageUrl: values.imageUrl,
-        title: values.title,
-        description: values.description,
-        techDescription: values.techDescription || undefined,
-        serviceUrl: values.serviceUrl || undefined,
-        githubUrl: values.githubUrl || undefined,
-        videoUrl: values.videoUrl || undefined,
-        status: values.status,
-        types: values.types.length > 0 ? values.types : undefined,
-      };
-
       if (isEditMode && product) {
-        await updateProduct({ id: product._id, ...payload });
+        await updateProduct({
+          id: product._id,
+          imageUrl: values.imageUrl,
+          title: values.title,
+          description: values.description,
+          techDescription: values.techDescription || null,
+          serviceUrl: values.serviceUrl || null,
+          githubUrl: values.githubUrl || null,
+          videoUrl: values.videoUrl || null,
+          status: values.status,
+          types: values.types.length > 0 ? values.types : undefined,
+        });
+        toast.success("프로덕트가 수정되었습니다.");
       } else {
-        await createProduct(payload);
+        await createProduct({
+          imageUrl: values.imageUrl,
+          title: values.title,
+          description: values.description,
+          techDescription: values.techDescription || undefined,
+          serviceUrl: values.serviceUrl || undefined,
+          githubUrl: values.githubUrl || undefined,
+          videoUrl: values.videoUrl || undefined,
+          status: values.status,
+          types: values.types.length > 0 ? values.types : undefined,
+        });
+        toast.success("프로덕트가 등록되었습니다.");
       }
       handleClose();
     } catch {

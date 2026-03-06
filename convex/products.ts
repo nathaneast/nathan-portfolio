@@ -47,16 +47,22 @@ export const update = mutation({
     imageUrl: v.optional(v.string()),
     title: v.optional(v.string()),
     description: v.optional(v.string()),
-    techDescription: v.optional(v.string()),
-    serviceUrl: v.optional(v.string()),
-    githubUrl: v.optional(v.string()),
-    videoUrl: v.optional(v.string()),
+    techDescription: v.optional(v.union(v.string(), v.null())),
+    serviceUrl: v.optional(v.union(v.string(), v.null())),
+    githubUrl: v.optional(v.union(v.string(), v.null())),
+    videoUrl: v.optional(v.union(v.string(), v.null())),
     status: v.optional(productStatusValidator),
     types: v.optional(v.array(productTypeValidator)),
   },
   handler: async (ctx, args) => {
-    const { id, ...fields } = args;
-    await ctx.db.patch(id, fields);
+    const { id, techDescription, serviceUrl, githubUrl, videoUrl, ...rest } = args;
+    await ctx.db.patch(id, {
+      ...rest,
+      techDescription: techDescription === null ? undefined : techDescription,
+      serviceUrl: serviceUrl === null ? undefined : serviceUrl,
+      githubUrl: githubUrl === null ? undefined : githubUrl,
+      videoUrl: videoUrl === null ? undefined : videoUrl,
+    });
   },
 });
 

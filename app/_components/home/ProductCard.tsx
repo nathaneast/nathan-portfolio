@@ -49,13 +49,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
 
-        <div className="mt-auto pt-3">
-          <ProductLinks
-            serviceUrl={product.serviceUrl}
-            githubUrl={product.githubUrl}
-            videoUrl={product.videoUrl}
-          />
-        </div>
+        {(product.serviceUrl || product.githubUrl || product.videoUrl) && (
+          <div className="mt-auto pt-3">
+            <ProductLinks
+              serviceUrl={product.serviceUrl}
+              githubUrl={product.githubUrl}
+              videoUrl={product.videoUrl}
+            />
+          </div>
+        )}
       </div>
     </Card>
   );
