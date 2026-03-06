@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Doc } from "@/convex/_generated/dataModel";
+import { Doc, Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,6 +16,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { ProductFormContent } from "./ProductFormContent";
 import { type FormValues } from "./types";
+import ProductCard from "@/app/_components/home/ProductCard";
 
 interface ProductFormProps {
   open: boolean;
@@ -122,6 +123,22 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
             {isEditMode ? "프로덕트 수정" : "프로덕트 등록"}
           </DialogTitle>
         </DialogHeader>
+
+        <div className="space-y-2">
+          <p className="text-xs text-muted-foreground">미리보기</p>
+          <ProductCard
+            product={{
+              _id: "preview" as Id<"products">,
+              _creationTime: Date.now(),
+              ...values,
+              techDescription: values.techDescription || undefined,
+              serviceUrl: values.serviceUrl || undefined,
+              githubUrl: values.githubUrl || undefined,
+              videoUrl: values.videoUrl || undefined,
+              types: values.types.length > 0 ? values.types : undefined,
+            }}
+          />
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-5" noValidate>
           <ProductFormContent

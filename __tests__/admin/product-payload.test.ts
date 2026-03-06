@@ -32,6 +32,7 @@ const REQUIRED_BASE: FormValues = {
   githubUrl: "",
   videoUrl: "",
   status: "active",
+  types: [],
 };
 
 describe("product payload 포맷팅 - 옵션 필드 빈 문자열 → undefined", () => {
