@@ -1,3 +1,5 @@
+"use client";
+
 const ENV_CONFIG: Record<string, { label: string; className: string }> = {
   local: {
     label: "LOCAL",
