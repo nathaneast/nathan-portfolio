@@ -42,6 +42,7 @@ export default defineSchema({
     url: v.string(),
     description: v.string(),
     order: v.number(),
+    thumbnailUrl: v.optional(v.string()),
   }).index("by_order", ["order"]),
 
   products: defineTable({

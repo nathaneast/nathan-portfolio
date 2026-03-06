@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { useMutation } from "convex/react";
+import { toast } from "sonner";
 import { api } from "@/convex/_generated/api";
 import type { Doc, Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2, Trash2, CheckCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { fetchYoutubeThumbnail } from "@/lib/youtube";
 import { type PageIcon, PAGE_ICON_OPTIONS } from "./types";
 
 type SaveStatus = "idle" | "saving" | "saved";
@@ -19,6 +21,7 @@ interface PageItemRowProps {
 
 export function PageItemRow({ page, onRemove }: PageItemRowProps) {
   const update = useMutation(api.personalPages.update);
+
   const [form, setForm] = useState<{ icon: PageIcon; name: string; url: string; description: string }>({
     icon: page.icon,
     name: page.name,
@@ -31,11 +34,16 @@ export function PageItemRow({ page, onRemove }: PageItemRowProps) {
   const handleSave = async () => {
     setSaveStatus("saving");
     try {
-      await update({ id: page._id, ...form });
+      let thumbnailUrl = page.thumbnailUrl;
+      if (form.icon === "youtube" && form.url && form.url !== page.url) {
+        thumbnailUrl = await fetchYoutubeThumbnail(form.url);
+      }
+      await update({ id: page._id, ...form, thumbnailUrl });
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 2000);
     } catch {
       setSaveStatus("idle");
+      toast.error("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 

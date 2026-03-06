@@ -11,6 +11,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "picsum.photos",
       },
+      {
+        protocol: "https",
+        hostname: "*.convex.cloud",
+      },
+      {
+        protocol: "https",
+        hostname: "yt3.ggpht.com",
+      },
+      {
+        protocol: "https",
+        hostname: "yt3.googleusercontent.com",
+      },
     ],
   },
 };

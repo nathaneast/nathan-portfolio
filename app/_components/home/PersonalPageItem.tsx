@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Youtube,
   BookOpen,
@@ -15,6 +16,7 @@ interface PersonalPageItemProps {
   name: string;
   url: string;
   description: string;
+  thumbnailUrl?: string;
 }
 
 const iconMap: Record<PageIcon, ReactNode> = {
@@ -32,15 +34,29 @@ export default function PersonalPageItem({
   name,
   url,
   description,
+  thumbnailUrl,
 }: PersonalPageItemProps) {
+  const iconNode =
+    icon === "youtube" && thumbnailUrl ? (
+      <Image
+        src={thumbnailUrl}
+        alt={`${name} 채널 프로필`}
+        width={28}
+        height={28}
+        className="w-7 h-7 shrink-0 rounded-full object-cover"
+      />
+    ) : (
+      iconMap[icon]
+    );
+
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-start gap-3 rounded-lg border border-border bg-card p-3 hover:bg-accent transition-colors"
+      className="group flex items-center gap-3 rounded-lg border border-border bg-card p-3 hover:bg-accent transition-colors"
     >
-      {iconMap[icon]}
+      {iconNode}
       <div className="min-w-0">
         <p className="text-sm font-medium text-foreground">{name}</p>
         <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">

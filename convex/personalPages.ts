@@ -20,9 +20,21 @@ export const create = mutation({
     url: v.string(),
     description: v.string(),
     order: v.number(),
+    thumbnailUrl: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("personalPages", args);
+  },
+});
+
+export const reorder = mutation({
+  args: {
+    orderedIds: v.array(v.id("personalPages")),
+  },
+  handler: async (ctx, args) => {
+    await Promise.all(
+      args.orderedIds.map((id, index) => ctx.db.patch(id, { order: index + 1 }))
+    );
   },
 });
 
@@ -34,12 +46,14 @@ export const update = mutation({
     url: v.optional(v.string()),
     description: v.optional(v.string()),
     order: v.optional(v.number()),
+    thumbnailUrl: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { id, ...fields } = args;
     await ctx.db.patch(id, fields);
   },
 });
+
 
 export const remove = mutation({
   args: {

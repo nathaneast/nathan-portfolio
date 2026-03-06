@@ -9,6 +9,7 @@ interface PersonalPage {
   url: string;
   description: string;
   order: number;
+  thumbnailUrl?: string;
 }
 
 interface PersonalPageListProps {
@@ -25,6 +26,7 @@ export default function PersonalPageList({ pages }: PersonalPageListProps) {
           name={page.name}
           url={page.url}
           description={page.description}
+          thumbnailUrl={page.thumbnailUrl}
         />
       ))}
     </div>
