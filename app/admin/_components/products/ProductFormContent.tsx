@@ -4,19 +4,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUpload } from "./ImageUpload";
-import { type FormValues, PRODUCT_TYPE_OPTIONS } from "./types";
+import { type FormValues, type ProductType, PRODUCT_TYPE_OPTIONS } from "./types";
 
 interface ProductFormContentProps {
   values: FormValues;
   errors: Partial<Record<keyof FormValues, string>>;
   onChange: (field: keyof FormValues, value: string) => void;
+  onTypesChange: (types: ProductType[]) => void;
 }
 
 export function ProductFormContent({
   values,
   errors,
   onChange,
+  onTypesChange,
 }: ProductFormContentProps) {
+  function toggleType(type: ProductType) {
+    const next = values.types.includes(type)
+      ? values.types.filter((t) => t !== type)
+      : [...values.types, type];
+    onTypesChange(next);
+  }
   return (
     <>
       <ImageUpload
@@ -84,38 +92,42 @@ export function ProductFormContent({
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="product-type" className="text-foreground">
-            플랫폼 타입
-          </Label>
-          <select
-            id="product-type"
-            value={values.type}
-            onChange={(e) => onChange("type", e.target.value)}
-            className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          >
-            <option value="">선택 안 함</option>
-            {PRODUCT_TYPE_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
-            ))}
-          </select>
+      <div className="space-y-2">
+        <Label className="text-foreground">플랫폼 타입 (복수 선택 가능)</Label>
+        <div className="flex flex-wrap gap-2">
+          {PRODUCT_TYPE_OPTIONS.map((opt) => {
+            const checked = values.types.includes(opt.value);
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => toggleType(opt.value)}
+                className={`px-3 py-1 rounded-full text-sm border transition-colors ${
+                  checked
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-background text-muted-foreground border-border hover:border-foreground"
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
         </div>
+      </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="product-status" className="text-foreground">
-            서비스 상태
-          </Label>
-          <select
-            id="product-status"
-            value={values.status}
-            onChange={(e) => onChange("status", e.target.value as "active" | "ended")}
-            className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-          >
-            <option value="active">운영 중</option>
-            <option value="ended">종료</option>
-          </select>
-        </div>
+      <div className="space-y-2">
+        <Label htmlFor="product-status" className="text-foreground">
+          서비스 상태
+        </Label>
+        <select
+          id="product-status"
+          value={values.status}
+          onChange={(e) => onChange("status", e.target.value as "active" | "ended")}
+          className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        >
+          <option value="active">운영 중</option>
+          <option value="ended">종료</option>
+        </select>
       </div>
 
       <div className="space-y-2">

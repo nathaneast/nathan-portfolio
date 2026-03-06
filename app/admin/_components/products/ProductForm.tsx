@@ -33,7 +33,7 @@ function getInitialValues(product?: Doc<"products">): FormValues {
     githubUrl: product?.githubUrl ?? "",
     videoUrl: product?.videoUrl ?? "",
     status: product?.status ?? "active",
-    type: product?.type ?? "",
+    types: product?.types ?? [],
   };
 }
 
@@ -78,6 +78,10 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
     }
   }
 
+  function handleTypesChange(types: import("./types").ProductType[]) {
+    setValues((prev) => ({ ...prev, types }));
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
@@ -94,7 +98,7 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
         githubUrl: values.githubUrl || undefined,
         videoUrl: values.videoUrl || undefined,
         status: values.status,
-        type: values.type || undefined,
+        types: values.types.length > 0 ? values.types : undefined,
       };
 
       if (isEditMode && product) {
@@ -125,6 +129,7 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
             values={values}
             errors={errors}
             onChange={handleChange}
+            onTypesChange={handleTypesChange}
           />
 
           <DialogFooter>

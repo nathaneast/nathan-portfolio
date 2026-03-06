@@ -16,5 +16,5 @@ export interface FormValues {
   githubUrl: string;
   videoUrl: string;
   status: "active" | "ended";
-  type: ProductType | "";
+  types: ProductType[];
 }

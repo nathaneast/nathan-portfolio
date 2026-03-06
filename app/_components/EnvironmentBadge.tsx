@@ -1,18 +1,33 @@
-"use client";
-
-const ENV_CONFIG: Record<string, { label: string; className: string }> = {
+const ENV_CONFIG = {
   local: {
     label: "LOCAL",
     className: "bg-yellow-400/90 text-black",
   },
   dev: {
     label: "DEV",
-    className: "bg-blue-500/90 text-white",
+    className: "bg-green-500/90 text-white",
   },
-};
+} as const;
+
+type EnvironmentKey = keyof typeof ENV_CONFIG;
+
+function normalizeEnvironment(value: string | undefined): EnvironmentKey | null {
+  switch (value?.trim().toLowerCase()) {
+    case "local":
+      return "local";
+    case "dev":
+      return "dev";
+    default:
+      return null;
+  }
+}
+
+function getEnvironmentKey(): EnvironmentKey | null {
+  return normalizeEnvironment(process.env.NEXT_PUBLIC_APP_ENV);
+}
 
 export default function EnvironmentBadge() {
-  const env = process.env.NEXT_PUBLIC_APP_ENV;
+  const env = getEnvironmentKey();
   const config = env ? ENV_CONFIG[env] : null;
 
   if (!config) return null;

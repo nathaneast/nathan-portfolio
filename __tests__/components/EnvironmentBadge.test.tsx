@@ -3,32 +3,38 @@ import { render, screen } from "@testing-library/react";
 import EnvironmentBadge from "@/app/_components/EnvironmentBadge";
 
 /**
- * 컴포넌트가 읽는 env 키: NEXT_PUBLIC_APP_ENV
- * 실제 설정 파일:
- *   - .env.local  → NEXT_PUBLIC_APP_ENV=local
- *   - Vercel dev  → NEXT_PUBLIC_APP_ENV=dev (Vercel 환경변수)
+ * NEXT_PUBLIC_APP_ENV 규칙:
+ * - local: 로컬 개발 (LOCAL 노란 뱃지)
+ * - dev: 개발 서버 (DEV 초록 뱃지)
+ * - prod: 운영 환경 (뱃지 없음)
  */
-const ENV_KEY = "NEXT_PUBLIC_APP_ENV";
+const PUBLIC_ENV_KEY = "NEXT_PUBLIC_APP_ENV";
 
 describe("EnvironmentBadge", () => {
   afterEach(() => {
-    delete process.env[ENV_KEY];
+    delete process.env[PUBLIC_ENV_KEY];
   });
 
-  it("local 환경에서는 LOCAL 뱃지를 표시한다", () => {
-    process.env[ENV_KEY] = "local";
-    render(<EnvironmentBadge />);
-    expect(screen.getByText("LOCAL")).toBeInTheDocument();
-  });
-
-  it("dev 환경에서는 DEV 뱃지를 표시한다", () => {
-    process.env[ENV_KEY] = "dev";
+  it("NEXT_PUBLIC_APP_ENV=dev면 DEV 뱃지를 표시한다", () => {
+    process.env[PUBLIC_ENV_KEY] = "dev";
     render(<EnvironmentBadge />);
     expect(screen.getByText("DEV")).toBeInTheDocument();
   });
 
-  it("production 환경은 설정에 없으므로 뱃지를 표시하지 않는다", () => {
-    process.env[ENV_KEY] = "production";
+  it("NEXT_PUBLIC_APP_ENV에 공백이나 개행이 섞여도 DEV 뱃지를 표시한다", () => {
+    process.env[PUBLIC_ENV_KEY] = " dev\n";
+    render(<EnvironmentBadge />);
+    expect(screen.getByText("DEV")).toBeInTheDocument();
+  });
+
+  it("NEXT_PUBLIC_APP_ENV=local이면 LOCAL 뱃지를 표시한다", () => {
+    process.env[PUBLIC_ENV_KEY] = "local";
+    render(<EnvironmentBadge />);
+    expect(screen.getByText("LOCAL")).toBeInTheDocument();
+  });
+
+  it("NEXT_PUBLIC_APP_ENV=prod면 뱃지를 표시하지 않는다", () => {
+    process.env[PUBLIC_ENV_KEY] = "prod";
     const { container } = render(<EnvironmentBadge />);
     expect(container.firstChild).toBeNull();
   });

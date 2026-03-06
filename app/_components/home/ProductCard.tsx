@@ -30,11 +30,14 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="flex flex-col justify-between flex-1 py-1 min-w-0">
         <div>
-          <div className="flex items-center gap-2 min-w-0">
+          <div className="flex items-center gap-2 min-w-0 flex-wrap">
             <h3 className="text-base font-semibold text-foreground truncate">
               {product.title}
             </h3>
-            <ProductTypeBadge type={product.type} />
+            <ProductTypeBadge types={product.types} />
+            {product.status === "ended" && (
+              <span className="text-xs text-destructive shrink-0">서비스 종료</span>
+            )}
           </div>
           <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2">
             {product.description}
@@ -51,7 +54,6 @@ export default function ProductCard({ product }: ProductCardProps) {
             serviceUrl={product.serviceUrl}
             githubUrl={product.githubUrl}
             videoUrl={product.videoUrl}
-            status={product.status}
           />
         </div>
       </div>

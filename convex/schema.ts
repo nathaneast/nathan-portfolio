@@ -61,6 +61,6 @@ export default defineSchema({
     githubUrl: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
     status: productStatusValidator,
-    type: v.optional(productTypeValidator),
+    types: v.optional(v.array(productTypeValidator)),
   }),
 });
