@@ -37,7 +37,7 @@ yarn-error.log*
 .vercel
 
 # claude code / local config
-.claude/
+.claude/settings.local.json
 .agents/
 .omx/
 .omc/
