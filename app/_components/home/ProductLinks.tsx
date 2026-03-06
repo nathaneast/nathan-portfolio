@@ -1,23 +1,19 @@
 import { ExternalLink, Github, Play } from "lucide-react";
-import { Doc } from "@/convex/_generated/dataModel";
 
 interface ProductLinksProps {
   serviceUrl?: string;
   githubUrl?: string;
   videoUrl?: string;
-  status: Doc<"products">["status"];
 }
 
 export default function ProductLinks({
   serviceUrl,
   githubUrl,
   videoUrl,
-  status,
 }: ProductLinksProps) {
   const hasAnyLink = serviceUrl || githubUrl || videoUrl;
-  const showEndedText = status === "ended" && !serviceUrl;
 
-  if (!hasAnyLink && !showEndedText) return null;
+  if (!hasAnyLink) return null;
 
   return (
     <div className="flex items-center gap-3">
@@ -53,9 +49,6 @@ export default function ProductLinks({
           <Play className="w-3.5 h-3.5" />
           영상
         </a>
-      )}
-      {showEndedText && (
-        <span className="text-xs text-destructive/70">서비스 종료</span>
       )}
     </div>
   );

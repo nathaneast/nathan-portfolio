@@ -9,7 +9,7 @@ export default function ProductStatusBadge({ status }: ProductStatusBadgeProps) 
 
   return (
     <span className="text-xs px-2 py-0.5 rounded-full bg-destructive/15 text-destructive font-medium">
-      종료
+      서비스 종료
     </span>
   );
 }
