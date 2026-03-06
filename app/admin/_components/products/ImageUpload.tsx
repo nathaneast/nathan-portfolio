@@ -8,6 +8,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Loader2, Upload, X } from "lucide-react";
+import { toast } from "sonner";
 import { StoragePreview } from "./StoragePreview";
 
 interface ImageUploadProps {
@@ -19,7 +20,6 @@ export function ImageUpload({ currentImageUrl, onImageUploaded }: ImageUploadPro
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(currentImageUrl);
   const [pendingStorageId, setPendingStorageId] = useState<Id<"_storage"> | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
@@ -29,11 +29,10 @@ export function ImageUpload({ currentImageUrl, onImageUploaded }: ImageUploadPro
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      setError("이미지 파일만 업로드할 수 있습니다.");
+      toast.error("이미지 파일만 업로드할 수 있습니다.");
       return;
     }
 
-    setError(null);
     setIsUploading(true);
     setPreviewUrl(undefined);
     setPendingStorageId(null);
@@ -54,7 +53,7 @@ export function ImageUpload({ currentImageUrl, onImageUploaded }: ImageUploadPro
       const { storageId } = (await result.json()) as { storageId: string };
       setPendingStorageId(storageId as Id<"_storage">);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "업로드 중 오류가 발생했습니다.");
+      toast.error(err instanceof Error ? err.message : "업로드 중 오류가 발생했습니다.");
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
@@ -146,11 +145,6 @@ export function ImageUpload({ currentImageUrl, onImageUploaded }: ImageUploadPro
         </Button>
       )}
 
-      {error && (
-        <p role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
-      )}
     </div>
   );
 }

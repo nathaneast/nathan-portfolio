@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { ProductForm } from "./ProductForm";
 import { Loader2, Pencil, Trash2, ExternalLink, Github } from "lucide-react";
+import { toast } from "sonner";
 
 interface ProductItemProps {
   product: Doc<"products">;
@@ -35,7 +36,7 @@ export function ProductItem({ product }: ProductItemProps) {
       await removeProduct({ id: product._id });
       setIsDeleteOpen(false);
     } catch {
-      // 삭제 실패 시 다이얼로그 유지
+      toast.error("삭제 중 오류가 발생했습니다. 다시 시도해주세요.");
     } finally {
       setIsDeleting(false);
     }

@@ -9,14 +9,12 @@ import { type FormValues } from "./types";
 interface ProductFormContentProps {
   values: FormValues;
   errors: Partial<Record<keyof FormValues, string>>;
-  submitError: string | null;
   onChange: (field: keyof FormValues, value: string) => void;
 }
 
 export function ProductFormContent({
   values,
   errors,
-  submitError,
   onChange,
 }: ProductFormContentProps) {
   return (
@@ -143,11 +141,6 @@ export function ProductFormContent({
         />
       </div>
 
-      {submitError && (
-        <p role="alert" className="text-sm text-destructive">
-          {submitError}
-        </p>
-      )}
     </>
   );
 }

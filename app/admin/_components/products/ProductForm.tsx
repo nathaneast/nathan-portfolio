@@ -13,6 +13,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { ProductFormContent } from "./ProductFormContent";
 import { type FormValues } from "./types";
 
@@ -39,7 +40,7 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
   const [values, setValues] = useState<FormValues>(() => getInitialValues(product));
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [formKey, setFormKey] = useState(0);
 
   const createProduct = useMutation(api.products.create);
   const updateProduct = useMutation(api.products.update);
@@ -50,14 +51,13 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
     if (open) {
       setValues(getInitialValues(product));
       setErrors({});
-      setSubmitError(null);
+      setFormKey((prev) => prev + 1);
     }
-  }, [open, product]);
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleClose() {
     setValues(getInitialValues(product));
     setErrors({});
-    setSubmitError(null);
     onClose();
   }
 
@@ -82,7 +82,6 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setSubmitError(null);
 
     try {
       const payload = {
@@ -103,7 +102,7 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
       }
       handleClose();
     } catch {
-      setSubmitError("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
+      toast.error("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
     } finally {
       setIsSubmitting(false);
     }
@@ -120,9 +119,9 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
 
         <form onSubmit={handleSubmit} className="space-y-5" noValidate>
           <ProductFormContent
+            key={formKey}
             values={values}
             errors={errors}
-            submitError={submitError}
             onChange={handleChange}
           />
 

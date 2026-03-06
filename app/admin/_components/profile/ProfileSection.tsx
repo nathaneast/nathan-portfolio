@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Loader2, CheckCircle } from "lucide-react";
+import { toast } from "sonner";
 import ImageUpload from "./ImageUpload";
 
 type SaveStatus = "idle" | "saving" | "saved";
@@ -40,6 +41,7 @@ export default function ProfileSection() {
       setTimeout(() => setSaveStatus("idle"), 2000);
     } catch {
       setSaveStatus("idle");
+      toast.error("저장 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
