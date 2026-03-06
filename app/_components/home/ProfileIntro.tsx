@@ -4,7 +4,7 @@ interface ProfileIntroProps {
 
 export default function ProfileIntro({ introduction }: ProfileIntroProps) {
   return (
-    <p className="mt-5 text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+    <p className="mt-5 text-base text-muted-foreground leading-relaxed whitespace-pre-line">
       {introduction}
     </p>
   );

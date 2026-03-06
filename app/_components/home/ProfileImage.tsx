@@ -8,8 +8,8 @@ interface ProfileImageProps {
 export default function ProfileImage({ imageUrl }: ProfileImageProps) {
   if (!imageUrl) {
     return (
-      <div className="w-24 h-24 rounded-full border-2 border-border flex items-center justify-center bg-muted">
-        <User className="w-12 h-12 text-muted-foreground" />
+      <div className="w-40 h-40 rounded-full border-2 border-border flex items-center justify-center bg-muted">
+        <User className="w-20 h-20 text-muted-foreground" />
       </div>
     );
   }
@@ -18,10 +18,10 @@ export default function ProfileImage({ imageUrl }: ProfileImageProps) {
     <Image
       src={imageUrl}
       alt="프로필 이미지"
-      width={96}
-      height={96}
+      width={160}
+      height={160}
       priority
-      className="w-24 h-24 rounded-full object-cover border-2 border-border"
+      className="w-40 h-40 rounded-full object-cover border-2 border-border"
     />
   );
 }

@@ -14,7 +14,7 @@ export default function ProfileSection() {
   if (!profile) return null;
 
   return (
-    <aside className="w-full lg:w-[360px] lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
+    <aside className="w-full lg:w-[460px] lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
       <ProfileImage imageUrl={profile.imageUrl} />
       <ProfileIntro introduction={profile.introduction} />
       <SnsLinks links={profile.snsLinks} />
