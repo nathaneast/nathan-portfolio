@@ -2,10 +2,10 @@
 
 ## Phase 1: 프로젝트 기반 셋업
 
-- [ ] 1. 프로젝트 초기 설정
+- [x] 1. 프로젝트 초기 설정
   - Convex 연동, shadcn/ui 설치, 다크모드 전용 테마 설정, 환경변수 구성
 
-- [ ] 2. DB 스키마 정의
+- [x] 2. DB 스키마 정의
   - Convex 테이블(profile, personalPages, products) 생성 및 기본 CRUD 함수 작성
 
 ## Phase 2: 홈 화면
