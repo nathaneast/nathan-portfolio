@@ -42,6 +42,12 @@ export default function ImageUpload({
 
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
 
+  useEffect(() => {
+    if (currentImageUrl && !isUploading && !pendingStorageId) {
+      setPreviewUrl(currentImageUrl);
+    }
+  }, [currentImageUrl]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const handleResolved = (url: string) => {
     onUpload(url);
     setPendingStorageId(null);
