@@ -14,9 +14,9 @@ const pretendard = localFont({
 });
 
 const siteUrl = getSiteUrl();
-const SITE_TITLE = "Nathan | Developer";
+const SITE_TITLE = "Nathan | 프론트엔드 개발자 · 1인 개발자 · 크리에이터";
 const SITE_DESCRIPTION =
-  "프론트엔드 개발자 Nathan의 포트폴리오. 사이드 프로젝트와 프로덕트를 소개합니다.";
+  "프론트엔드 개발자, 1인 개발자, 유튜버 Nathan의 포트폴리오. 프로덕트 엔지니어링부터 솔로프리너 창업까지, 직접 만든 서비스와 프로젝트를 소개합니다.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -25,7 +25,24 @@ export const metadata: Metadata = {
     template: "%s | Nathan",
   },
   description: SITE_DESCRIPTION,
-  keywords: ["developer", "frontend", "portfolio", "Nathan", "Next.js", "React"],
+  keywords: [
+    "Nathan",
+    "프론트엔드 개발자",
+    "프론트엔드 개발자 리드",
+    "앱 개발자",
+    "풀스택 개발자",
+    "프로덕트 엔지니어",
+    "솔로프리너",
+    "1인 개발자",
+    "1인 개발",
+    "1인 기업",
+    "스타트업",
+    "크리에이터",
+    "작가",
+    "유튜버",
+    "포트폴리오",
+    "개발자 포트폴리오",
+  ],
   authors: [{ name: "Nathan" }],
   creator: "Nathan",
   openGraph: {
@@ -59,7 +76,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Nathan",
   url: siteUrl,
-  jobTitle: "Frontend Developer",
+  jobTitle: "Frontend Developer / Product Engineer / Creator",
   description: SITE_DESCRIPTION,
 };
 
