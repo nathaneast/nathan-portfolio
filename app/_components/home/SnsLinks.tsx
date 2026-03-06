@@ -1,5 +1,6 @@
 import { AtSign, Linkedin, Github, Mail } from "lucide-react";
 import type { ReactNode } from "react";
+import EmailCopyButton from "./EmailCopyButton";
 
 type SnsType = "threads" | "x" | "linkedin" | "github" | "email";
 
@@ -39,19 +40,19 @@ export default function SnsLinks({ links }: SnsLinksProps) {
   return (
     <div className="mt-5 flex items-center gap-3">
       {links.map((link) => {
-        const href = link.type === "email" ? `mailto:${link.url}` : link.url;
-        const iconClassName =
-          "w-5 h-5 text-muted-foreground hover:text-foreground transition-colors";
+        if (link.type === "email") {
+          return <EmailCopyButton key={link.type} email={link.url} />;
+        }
 
         return (
           <a
             key={link.type}
-            href={href}
-            target={link.type === "email" ? undefined : "_blank"}
-            rel={link.type === "email" ? undefined : "noopener noreferrer"}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label={link.type}
           >
-            {iconMap[link.type](iconClassName)}
+            {iconMap[link.type]("w-5 h-5 text-muted-foreground hover:text-foreground transition-colors")}
           </a>
         );
       })}
