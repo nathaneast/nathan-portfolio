@@ -16,6 +16,10 @@ export default function ProfileSection() {
   return (
     <aside className="w-full lg:w-[460px] lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
       <ProfileImage imageUrl={profile.imageUrl} />
+      <div className="mt-4">
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">Nathaneast</h1>
+        <p className="text-sm text-muted-foreground mt-0.5">Nathan + Artist</p>
+      </div>
       <ProfileIntro introduction={profile.introduction} />
       <SnsLinks links={profile.snsLinks} />
       {personalPages && personalPages.length > 0 && (
