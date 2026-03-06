@@ -7,6 +7,7 @@ import {
   snsTypeValidator,
   pageIconValidator,
   productStatusValidator,
+  productTypeValidator,
 } from "@/convex/schema";
 
 function getUnionValues(validator: { members: { value: string }[] }): string[] {
@@ -46,5 +47,15 @@ describe("productStatusValidator", () => {
     const values = getUnionValues(productStatusValidator as never);
     expect(values).toEqual(expect.arrayContaining(["active", "ended"]));
     expect(values).toHaveLength(2);
+  });
+});
+
+describe("productTypeValidator", () => {
+  it("허용된 플랫폼 타입 4개를 정확히 포함한다", () => {
+    const values = getUnionValues(productTypeValidator as never);
+    expect(values).toEqual(
+      expect.arrayContaining(["web", "app", "toss-inapp", "desktop"])
+    );
+    expect(values).toHaveLength(4);
   });
 });

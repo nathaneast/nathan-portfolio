@@ -1,7 +1,7 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { paginationOptsValidator } from "convex/server";
-import { productStatusValidator } from "./schema";
+import { productStatusValidator, productTypeValidator } from "./schema";
 
 export const list = query({
   args: {
@@ -34,6 +34,7 @@ export const create = mutation({
     githubUrl: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
     status: productStatusValidator,
+    type: v.optional(productTypeValidator),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("products", args);
@@ -51,6 +52,7 @@ export const update = mutation({
     githubUrl: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
     status: v.optional(productStatusValidator),
+    type: v.optional(productTypeValidator),
   },
   handler: async (ctx, args) => {
     const { id, ...fields } = args;

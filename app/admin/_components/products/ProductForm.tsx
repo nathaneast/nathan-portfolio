@@ -33,6 +33,7 @@ function getInitialValues(product?: Doc<"products">): FormValues {
     githubUrl: product?.githubUrl ?? "",
     videoUrl: product?.videoUrl ?? "",
     status: product?.status ?? "active",
+    type: product?.type ?? "",
   };
 }
 
@@ -93,6 +94,7 @@ export function ProductForm({ open, onClose, product }: ProductFormProps) {
         githubUrl: values.githubUrl || undefined,
         videoUrl: values.videoUrl || undefined,
         status: values.status,
+        type: values.type || undefined,
       };
 
       if (isEditMode && product) {

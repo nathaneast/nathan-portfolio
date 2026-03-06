@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ImageUpload } from "./ImageUpload";
-import { type FormValues } from "./types";
+import { type FormValues, PRODUCT_TYPE_OPTIONS } from "./types";
 
 interface ProductFormContentProps {
   values: FormValues;
@@ -84,19 +84,38 @@ export function ProductFormContent({
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="product-status" className="text-foreground">
-          서비스 상태
-        </Label>
-        <select
-          id="product-status"
-          value={values.status}
-          onChange={(e) => onChange("status", e.target.value as "active" | "ended")}
-          className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-        >
-          <option value="active">운영 중</option>
-          <option value="ended">종료</option>
-        </select>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="product-type" className="text-foreground">
+            플랫폼 타입
+          </Label>
+          <select
+            id="product-type"
+            value={values.type}
+            onChange={(e) => onChange("type", e.target.value)}
+            className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            <option value="">선택 안 함</option>
+            {PRODUCT_TYPE_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="product-status" className="text-foreground">
+            서비스 상태
+          </Label>
+          <select
+            id="product-status"
+            value={values.status}
+            onChange={(e) => onChange("status", e.target.value as "active" | "ended")}
+            className="flex h-10 w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+          >
+            <option value="active">운영 중</option>
+            <option value="ended">종료</option>
+          </select>
+        </div>
       </div>
 
       <div className="space-y-2">

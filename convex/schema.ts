@@ -24,6 +24,13 @@ export const productStatusValidator = v.union(
   v.literal("ended")
 );
 
+export const productTypeValidator = v.union(
+  v.literal("web"),
+  v.literal("app"),
+  v.literal("toss-inapp"),
+  v.literal("desktop")
+);
+
 export default defineSchema({
   profile: defineTable({
     imageUrl: v.string(),
@@ -54,5 +61,6 @@ export default defineSchema({
     githubUrl: v.optional(v.string()),
     videoUrl: v.optional(v.string()),
     status: productStatusValidator,
+    type: v.optional(productTypeValidator),
   }),
 });

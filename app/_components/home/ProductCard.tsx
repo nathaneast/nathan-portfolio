@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import { Doc } from "@/convex/_generated/dataModel";
 import { Card } from "@/components/ui/card";
-import ProductStatusBadge from "./ProductStatusBadge";
+import ProductTypeBadge from "./ProductTypeBadge";
 import ProductLinks from "./ProductLinks";
 
 interface ProductCardProps {
@@ -30,11 +30,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="flex flex-col justify-between flex-1 py-1 min-w-0">
         <div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-0">
             <h3 className="text-base font-semibold text-foreground truncate">
               {product.title}
             </h3>
-            <ProductStatusBadge status={product.status} />
+            <ProductTypeBadge type={product.type} />
           </div>
           <p className="mt-1.5 text-sm text-muted-foreground line-clamp-2">
             {product.description}
@@ -51,6 +51,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             serviceUrl={product.serviceUrl}
             githubUrl={product.githubUrl}
             videoUrl={product.videoUrl}
+            status={product.status}
           />
         </div>
       </div>
