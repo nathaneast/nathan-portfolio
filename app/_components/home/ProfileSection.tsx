@@ -2,6 +2,8 @@
 
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import Link from "next/link";
+import { QrCode } from "lucide-react";
 import ProfileImage from "./ProfileImage";
 import ProfileIntro from "./ProfileIntro";
 import SnsLinks from "./SnsLinks";
@@ -15,7 +17,16 @@ export default function ProfileSection() {
 
   return (
     <aside className="w-full lg:w-[460px] lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
-      <ProfileImage imageUrl={profile.imageUrl} />
+      <div className="relative inline-block">
+        <ProfileImage imageUrl={profile.imageUrl} />
+        <Link
+          href="/qr"
+          className="absolute bottom-1 right-1 p-1.5 rounded-full bg-background border border-border text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
+          aria-label="QR 코드 페이지로 이동"
+        >
+          <QrCode className="w-4 h-4" />
+        </Link>
+      </div>
       <div className="mt-4">
         <h1 className="text-2xl font-bold tracking-tight text-foreground">Nathaneast</h1>
         <p className="text-sm text-muted-foreground mt-0.5">Nathan + Artist</p>
