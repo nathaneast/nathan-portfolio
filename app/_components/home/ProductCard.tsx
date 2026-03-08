@@ -30,7 +30,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       <div className="flex flex-col gap-2 p-3">
         <div className="flex items-center gap-2 min-w-0 flex-wrap">
-          <h3 className="text-base font-semibold text-foreground truncate">
+          <h3 className="text-base font-semibold text-foreground">
             {product.title}
           </h3>
           <ProductTypeBadge types={product.types} />
@@ -38,11 +38,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             <span className="text-xs text-destructive shrink-0">서비스 종료</span>
           )}
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-2">
+        <p className="text-sm text-muted-foreground">
           {product.description}
         </p>
         {product.techDescription && (
-          <p className="text-xs text-muted-foreground/70 line-clamp-1 font-mono">
+          <p className="text-xs text-muted-foreground/70 font-mono">
             {product.techDescription}
           </p>
         )}
