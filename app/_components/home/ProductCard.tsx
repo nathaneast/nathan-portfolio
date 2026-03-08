@@ -18,7 +18,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             src={product.imageUrl}
             alt={product.title}
             fill
-            className="object-cover"
+            className="object-contain"
             sizes="(max-width: 640px) 100vw, 50vw"
           />
         ) : (
