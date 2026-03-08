@@ -93,7 +93,7 @@ export function ImageUpload({ currentImageUrl, onImageUploaded }: ImageUploadPro
             alt="프로덕트 이미지 미리보기"
             fill
             sizes="(max-width: 320px) 100vw, 320px"
-            className="object-cover"
+            className="object-contain"
           />
           <button
             type="button"

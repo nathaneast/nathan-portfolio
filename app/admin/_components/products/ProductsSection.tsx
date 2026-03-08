@@ -59,7 +59,7 @@ export function ProductsSection() {
         </div>
       ) : (
         <>
-          <ul className="space-y-3" aria-label="프로덕트 목록">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="프로덕트 목록">
             {results.map((product) => (
               <li key={product._id}>
                 <ProductItem product={product} />
