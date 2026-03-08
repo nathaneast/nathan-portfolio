@@ -28,8 +28,11 @@ export default function ProfileSection() {
         </Link>
       </div>
       <div className="mt-4">
-        <h1 className="text-2xl font-bold tracking-tight text-foreground">Nathaneast</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">Nathan + Artist</p>
+        <div className="flex items-baseline gap-2">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">Nathaneast</h1>
+          <span className="text-xs text-muted-foreground">Nathan + Artist</span>
+        </div>
+        <p className="text-sm text-muted-foreground mt-0.5">AI Builder, AI Workflow Architect</p>
       </div>
       <ProfileIntro introduction={profile.introduction} />
       <SnsLinks links={profile.snsLinks} />

@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ProfileSection from "./_components/profile/ProfileSection";
 import SnsLinksSection from "./_components/profile/SnsLinksSection";
@@ -14,7 +16,12 @@ export default function AdminPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="max-w-4xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-bold text-foreground mb-8">관리자</h1>
+        <div className="flex items-center gap-2 mb-8">
+          <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+            <ChevronLeft className="w-6 h-6" />
+          </Link>
+          <h1 className="text-2xl font-bold text-foreground">관리자</h1>
+        </div>
 
         <Tabs defaultValue="profile">
           <TabsList className="mb-6">
