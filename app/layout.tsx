@@ -13,7 +13,7 @@ const pretendard = localFont({
 });
 
 const siteUrl = getSiteUrl();
-const SITE_TITLE = "Nathan | 프론트엔드 개발자 · 1인 개발자 · 크리에이터";
+const SITE_TITLE = "Nathan | 프로덕트 엔지니어 · 1인 개발자 · 크리에이터";
 const SITE_DESCRIPTION =
   "프론트엔드 개발자, 1인 개발자, 유튜버 Nathan의 포트폴리오. 프로덕트 엔지니어링부터 솔로프리너 창업까지, 직접 만든 서비스와 프로젝트를 소개합니다.";
 
