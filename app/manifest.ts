@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Nathan Portfolio",
-    short_name: "Nathan",
+    name: "Nathaneast | 디지털 명함",
+    short_name: "Nathaneast | 디지털 명함",
     description:
       "프로덕트 엔지니어 Nathan의 포트폴리오. 직접 만든 서비스와 프로젝트를 소개합니다.",
     start_url: "/",

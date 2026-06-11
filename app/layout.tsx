@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   creator: "Nathan",
   appleWebApp: {
     capable: true,
-    title: "Nathan",
+    title: "Nathaneast | 디지털 명함",
     statusBarStyle: "black-translucent",
     startupImage: appleSplashImages,
   },
