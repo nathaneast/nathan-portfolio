@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -25,13 +25,13 @@ export default function ProfileSection() {
   const [imageUrl, setImageUrl] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
+  const [loadedProfile, setLoadedProfile] = useState(profile);
 
-  useEffect(() => {
-    if (profile) {
-      setImageUrl(profile.imageUrl);
-      setIntroduction(profile.introduction);
-    }
-  }, [profile]);
+  if (profile && profile !== loadedProfile) {
+    setLoadedProfile(profile);
+    setImageUrl(profile.imageUrl);
+    setIntroduction(profile.introduction);
+  }
 
   const handleSave = async () => {
     setSaveStatus("saving");

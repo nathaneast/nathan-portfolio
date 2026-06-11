@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -132,6 +132,7 @@ export default function SnsLinksSection() {
 
   const [links, setLinks] = useState<SnsLink[]>([]);
   const [saveStatus, setSaveStatus] = useState<SaveStatus>("idle");
+  const [loadedProfile, setLoadedProfile] = useState(profile);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -140,11 +141,10 @@ export default function SnsLinksSection() {
     })
   );
 
-  useEffect(() => {
-    if (profile) {
-      setLinks(profile.snsLinks as SnsLink[]);
-    }
-  }, [profile]);
+  if (profile && profile !== loadedProfile) {
+    setLoadedProfile(profile);
+    setLinks(profile.snsLinks as SnsLink[]);
+  }
 
   const usedTypes = links.map((l) => l.type);
   const availableTypes = SNS_OPTIONS.filter(

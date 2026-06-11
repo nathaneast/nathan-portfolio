@@ -3,17 +3,15 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { ReactNode } from "react";
 
-const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+// main 단일 운영: 모든 환경(local/dev/prod)이 운영 Convex 배포 하나만 사용한다.
+const CONVEX_URL = "https://famous-hedgehog-522.convex.cloud";
 
-const convex = convexUrl ? new ConvexReactClient(convexUrl) : null;
+const convex = new ConvexReactClient(CONVEX_URL);
 
 export default function ConvexClientProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  if (!convex) {
-    return <>{children}</>;
-  }
   return <ConvexProvider client={convex}>{children}</ConvexProvider>;
 }

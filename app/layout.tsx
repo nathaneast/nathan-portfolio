@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import ConvexClientProvider from "./ConvexClientProvider";
-import EnvironmentBadge from "./_components/EnvironmentBadge";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -95,7 +94,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Toaster position="top-center" richColors duration={4000} />
-        <EnvironmentBadge />
         <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>
