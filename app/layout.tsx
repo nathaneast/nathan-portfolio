@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "sonner";
 import ConvexClientProvider from "./ConvexClientProvider";
 import { getSiteUrl } from "@/lib/site";
+import { appleSplashImages } from "@/lib/apple-splash";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -44,6 +45,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Nathan" }],
   creator: "Nathan",
+  appleWebApp: {
+    capable: true,
+    title: "Nathan",
+    statusBarStyle: "black-translucent",
+    startupImage: appleSplashImages,
+  },
   openGraph: {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
@@ -68,6 +75,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
 };
 
 const jsonLd = {
