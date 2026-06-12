@@ -2,6 +2,8 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { ADMIN_PASSWORD_STATUS } from "@/lib/admin-auth";
+import { verifyAdminPasswordForLogin } from "./auth";
 
 export type LoginActionState = {
   error: string | null;
@@ -17,15 +19,19 @@ export async function loginAction(
     return { error: "비밀번호를 입력해주세요." };
   }
 
-  const adminPassword = process.env.ADMIN_PASSWORD;
+  const verification = await verifyAdminPasswordForLogin(password);
 
-  if (!adminPassword) {
-    console.error("ADMIN_PASSWORD environment variable is not set");
-    return { error: "서버 설정 오류가 발생했습니다." };
-  }
-
-  if (password !== adminPassword) {
-    return { error: "비밀번호가 올바르지 않습니다." };
+  switch (verification.status) {
+    case ADMIN_PASSWORD_STATUS.Invalid:
+      return { error: "비밀번호가 올바르지 않습니다." };
+    case ADMIN_PASSWORD_STATUS.MissingConfig:
+      return { error: "서버 설정 오류가 발생했습니다." };
+    case ADMIN_PASSWORD_STATUS.Unavailable:
+      return { error: "로그인 확인 중 오류가 발생했습니다." };
+    case ADMIN_PASSWORD_STATUS.Valid:
+      break;
+    default:
+      assertNever(verification);
   }
 
   const cookieStore = await cookies();
@@ -38,4 +44,10 @@ export async function loginAction(
   });
 
   redirect("/admin");
+}
+
+function assertNever(value: never): never {
+  throw new Error(
+    `Unhandled admin password verification result: ${JSON.stringify(value)}`
+  );
 }
